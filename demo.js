@@ -24,6 +24,11 @@ function onsubmit(e){
 
      deleteBtn.appendChild(document.createTextNode('delete'));
      li.appendChild(deleteBtn)
+     //  create edit btn 
+     var editBtn = document.createElement('button');
+     editBtn.className='btn btn-danger btn-sm float-right edit';
+     editBtn.appendChild(document.createTextNode('edit'));
+       li.appendChild(editBtn);
      itemList.appendChild(li);
 
      var userDetails = {
@@ -38,6 +43,13 @@ function deleteItem(e){
       if(confirm('Are you Sure?')){
          var li =e.target.parentElement;
          itemList.removeChild(li);
+      }
+   } else if(e.target.classList.contains('edit')){
+      var li = e.target.parentElement;
+      var itemText = li.firstChild;
+      var newText = prompt('Enter New Text:', itemText.textContent);
+      if(newText !== null){
+         itemText.textContent = newText;
       }
    }
 }
