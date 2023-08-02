@@ -56,7 +56,7 @@ function deleteItem(e) {
             var itemId = li.dataset.itemId;
             axios.delete(`https://crudcrud.com/api/652bafa0ddc34a3d9dae34d9f2b9c5be/appointmentData/${itemId}`)
                 .then((res) => {
-                    console.log(res);
+                  deleteItem(e);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -92,7 +92,19 @@ function editItem(e) {
                 userDetailsList[index].newNum = newN;
             }
 
-           
+           // Update the item in the API
+           var itemId = li.dataset.itemId;
+           axios.put(`https://crudcrud.com/api/4134bfefee9843579b67f6acb13cf1b6/appointmentData/${itemId}`, {
+               newName: newNa,
+               newEmail: newE,
+               newNum: newN,
+           })
+           .then((res) => {
+               console.log(res);
+           })
+           .catch((err) => {
+               console.log(err);
+           });
         }
     }
 }
@@ -110,6 +122,9 @@ function createListItem(name, email, number) {
     deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
     deleteBtn.appendChild(document.createTextNode('delete'));
     li.appendChild(deleteBtn);
+
+        // Set the data-item-id attribute on the li element
+        li.setAttribute('data-item-id', userDetailsList.length);
 
     // Create an edit button
     var editBtn = document.createElement('button');
