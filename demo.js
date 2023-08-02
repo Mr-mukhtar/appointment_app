@@ -51,11 +51,16 @@ function deleteItem(e) {
             var li = e.target.parentElement;
             itemList.removeChild(li);
 
-            // Update the JavaScript variable after deletion
-            var index = Array.from(itemList.children).indexOf(li);
-            if (index !== -1) {
-                userDetailsList.splice(index, 1);
-            }
+   
+            // Delete the item from the API
+            var itemId = li.dataset.itemId;
+            axios.delete(`https://crudcrud.com/api/652bafa0ddc34a3d9dae34d9f2b9c5be/appointmentData/${itemId}`)
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
 
            
         }
